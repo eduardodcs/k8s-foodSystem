@@ -44,11 +44,15 @@ jobs:
       run: terraform validate -no-color
       
     - name: Terraform Plan
-      if: vars.DESTROY == 'false'
       id: plan
       run: terraform plan -out=tfplan -input=false
       
     - name: Terraform Apply
-      if: vars.DESTROY == 'true'
+      if: vars.DESTROY == 'false'
       id: apply
       run: terraform apply -input=false -auto-approve
+
+    - name: Terraform Destroy
+      if: vars.DESTROY == 'true'
+      id: destroy
+      run: terraform destroy -input=false -auto-approve
