@@ -16,6 +16,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: Print destroy
+      run: echo "destroy= ${{ vars.DESTROY }}"
+
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -41,9 +44,11 @@ jobs:
       run: terraform validate -no-color
       
     - name: Terraform Plan
+      if: vars.DESTROY == 'false'
       id: plan
       run: terraform plan -out=tfplan -input=false
       
     - name: Terraform Apply
+      if: vars.DESTROY == 'true'
       id: apply
       run: terraform apply -input=false -auto-approve
