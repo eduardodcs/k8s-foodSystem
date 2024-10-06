@@ -14,7 +14,7 @@ spec:
       labels:
         app: eks-sample-linux-app
     spec:
-      affinityinity:
+      affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
